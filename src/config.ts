@@ -1,10 +1,11 @@
 import { HeadlessState } from './state.js';
 import { setCheck, setSelected } from './board.js';
-import { read as fenRead } from './fen.js';
+import { read as fenRead, Mapping} from './fen.js';
 import { DrawShape, DrawBrushes } from './draw.js';
 import * as cg from './types.js';
 
 export interface Config {
+  mapping?: Mapping; // fen char mapping for custom pieces
   fen?: cg.FEN; // chess position in Forsyth notation
   orientation?: cg.Color; // board orientation. white | black
   turnColor?: cg.Color; // turn to play. white | black
