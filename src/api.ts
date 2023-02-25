@@ -1,6 +1,6 @@
 import { State } from './state.js';
 import * as board from './board.js';
-import { write as fenWrite } from './fen.js';
+import { write as fenWrite, Mapping } from './fen.js';
 import { Config, configure, applyAnimation } from './config.js';
 import { anim, render } from './anim.js';
 import { cancel as dragCancel, dragNewPiece } from './drag.js';
@@ -13,6 +13,9 @@ export interface Api {
   // reconfigure the instance. Accepts all config options, except for viewOnly & drawable.visible.
   // board will be animated accordingly, if animations are enabled.
   set(config: Config): void;
+  
+  // set the fen mapping of the variant
+  setMapping(mapping: Mapping): void;
 
   // read chessground state; write at your own risks.
   state: State;
@@ -93,10 +96,12 @@ export function start(state: State, redrawAll: cg.Redraw): Api {
       applyAnimation(state, config);
       (config.fen ? anim : render)(state => configure(state, config), state);
     },
+    
+    setMapping(mapping): void { state.mapping = mapping; },
 
     state,
 
-    getFen: () => fenWrite(state.boardState, state.dimensions),
+    getFen: () => fenWrite(state.boardState, state.dimensions, state.mapping),
 
     toggleOrientation,
 

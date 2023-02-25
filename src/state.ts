@@ -9,6 +9,7 @@ import * as cg from './types.js';
 
 export interface HeadlessState {
   boardState: cg.BoardState;
+  mapping: fen.Mapping; // fen mapping for the current variant
   orientation: cg.Color; // board orientation. white | black
   turnColor: cg.Color; // turn to play. white | black
   check?: cg.Key; // square currently in check "a2"
@@ -99,7 +100,8 @@ export interface State extends HeadlessState {
 
 export function defaults(): HeadlessState {
   return {
-    boardState: fen.read(fen.initial, { width: 8, height: 8 }),
+    boardState: fen.read(fen.initial, { width: 8, height: 8 }, fen.DEFAULT_MAPPING),
+    mapping: fen.DEFAULT_MAPPING,
     orientation: 'white',
     turnColor: 'white',
     coordinates: true,
