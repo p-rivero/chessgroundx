@@ -101,7 +101,8 @@ export interface State extends HeadlessState {
 export function defaults(): HeadlessState {
   return {
     boardState: fen.read(fen.initial, { width: 8, height: 8 }, fen.DEFAULT_MAPPING),
-    mapping: fen.DEFAULT_MAPPING,
+    // Clone the mapping to avoid aliasing
+    mapping: JSON.parse(JSON.stringify(fen.DEFAULT_MAPPING)),
     orientation: 'white',
     turnColor: 'white',
     coordinates: true,
