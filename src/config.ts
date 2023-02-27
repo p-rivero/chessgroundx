@@ -84,7 +84,7 @@ export interface Config {
   };
   dimensions?: cg.BoardDimensions;
   notation?: cg.Notation; // coord notation style
-  kingRoles?: cg.Role[]; // roles to be marked with check
+  kingRoles?: string[]; // id of pieces to be marked with check
   pocketRoles?: cg.PocketRoles; // what pieces have slots in the pocket for each color
 }
 
@@ -118,7 +118,7 @@ export function configure(state: HeadlessState, config: Config): void {
   }
 
   // apply config values that could be undefined yet meaningful
-  if ('check' in config || 'kingRoles' in config) setCheck(state, config.check || false);
+  if ('check' in config || 'kingRoles' in config) setCheck(state, config.check || false, state.mapping);
   if ('lastMove' in config && !config.lastMove) state.lastMove = undefined;
   // in case of ZH drop last move, there's a single square.
   // if the previous last move had two squares,

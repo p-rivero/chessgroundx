@@ -165,3 +165,8 @@ function mapInnerToOuter(c: cg.Letter, color: cg.Color, mapping: Mapping): strin
   const replacedLetter = color === 'white' ? mapping.whitePieces[letterIndex] : mapping.blackPieces[letterIndex];
   return isPromoted ? '+' + replacedLetter : replacedLetter;
 }
+
+export function mapIdToRole(outerId: string, mapping: Mapping): { role: cg.Role, color: cg.Color } {
+  const { letter, color } = mapOuterToInner(outerId, mapping);
+  return { role: roleOf(letter), color };
+}

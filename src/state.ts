@@ -90,7 +90,7 @@ export interface HeadlessState {
   hold: cg.Timer;
   dimensions: cg.BoardDimensions; // number of lines and ranks of the board {width: 10, height: 8}
   notation: cg.Notation;
-  kingRoles: cg.Role[]; // roles to be marked with check
+  kingRoles: string[]; // piece id (one char) to be marked with check
   pocketRoles?: cg.PocketRoles; // undefined for non-pocket variants. Possible pieces that a pocket can hold for each color
 }
 

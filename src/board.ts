@@ -14,6 +14,7 @@ import {
 } from './util.js';
 import { queen, knight, janggiElephant } from './premove.js';
 import * as cg from './types.js';
+import { type Mapping, mapIdToRole } from './fen';
 
 export function callUserFunction<T extends (...args: any[]) => void>(f: T | undefined, ...args: Parameters<T>): void {
   if (f) setTimeout(() => f(...args), 1);
@@ -37,12 +38,12 @@ export function setPieces(state: HeadlessState, pieces: cg.PiecesDiff): void {
   }
 }
 
-export function setCheck(state: HeadlessState, color: cg.Color | boolean): void {
+export function setCheck(state: HeadlessState, color: cg.Color | boolean, mapping: Mapping): void {
   state.check = undefined;
   if (color === true) color = state.turnColor;
   if (color)
     for (const [k, p] of state.boardState.pieces) {
-      if (state.kingRoles.includes(p.role) && p.color === color) {
+      if (p.color === color && state.kingRoles.some(id => mapIdToRole(id, mapping).role === p.role && mapIdToRole(id, mapping).color === color)) {
         state.check = k;
         break;
       }
