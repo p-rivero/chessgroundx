@@ -142,7 +142,11 @@ function writePocket(pocket: cg.Pocket, color: cg.Color, mapping: Mapping): stri
   return letters.join('');
 }
 
-function mapOuterToInner(c: string, mapping: Mapping): { letter: cg.Alphabet, color: cg.Color } {
+function mapOuterToInner(c: string, mapping: Mapping): { letter: cg.Alphabet|'*', color: cg.Color } {
+  // Inaccessible squares are '*' in the FEN
+  if (c === '*') {
+    return {letter: '*', color: 'none' as cg.Color};
+  }
   const letterIndexAsWhite = mapping.whitePieces.indexOf(c);
   const letterIndexAsBlack = mapping.blackPieces.indexOf(c);
   if (letterIndexAsWhite === -1 && letterIndexAsBlack === -1)
