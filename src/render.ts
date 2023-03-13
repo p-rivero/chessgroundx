@@ -4,7 +4,7 @@ import {
   pieceClasses as pieceNameOf,
   createEl,
   posToTranslate as posToTranslateFromBounds,
-  translate,
+  translateAndScale,
   dropOrigOf,
   isKey,
 } from './util.js';
@@ -158,6 +158,10 @@ export function render(s: State): void {
           pos = key2pos(k);
 
         pieceNode.cgPiece = pieceName;
+        // Make walls slightly bigger because otherwise they are not connected properly
+        // (1 pixel of the board is visible between 2 walls)
+        // Make other pieces slightly smaller than the square
+        pieceNode.cgScale = p.role === '_-piece' ? 1.02 : 0.9;
         pieceNode.cgKey = k;
         if (anim) {
           pieceNode.cgAnimating = true;
@@ -267,4 +271,9 @@ function appendValue<K, V>(map: Map<K, V[]>, key: K, value: V): void {
   const arr = map.get(key);
   if (arr) arr.push(value);
   else map.set(key, [value]);
+}
+
+function translate(el: cg.PieceNode | cg.SquareNode, pos: cg.NumberPair): void {
+  const scale = isPieceNode(el) ? el.cgScale : 1;
+  translateAndScale(el, pos, scale);
 }
