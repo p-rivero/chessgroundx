@@ -172,7 +172,9 @@ function renderCustomSvg(customSvg: string, pos: cg.Pos, bounds: ClientRect, bd:
   const [x, y] = pos2user(pos, bounds, bd);
 
   // Translate to top-left of `orig` square
-  const g = setAttributes(createElement('g'), { transform: `translate(${x},${y})` });
+  const g = isNaN(x) || isNaN(y) ?
+    setAttributes(createElement('g'), { display: 'none' }) :
+    setAttributes(createElement('g'), { transform: `translate(${x},${y})` });
 
   // Give 100x100 coordinate system to the user for `orig` square
   const svg = setAttributes(createElement('svg'), { width: 1, height: 1, viewBox: '0 0 100 100' });
@@ -220,6 +222,11 @@ function renderArrow(
     angle = Math.atan2(dy, dx),
     xo = Math.cos(angle) * m,
     yo = Math.sin(angle) * m;
+    
+  if (isNaN(dx) || isNaN(dy)) {
+    return setAttributes(createElement('line'), { display: 'none' });
+  }
+    
   return setAttributes(createElement('line'), {
     stroke: brush.color,
     'stroke-width': lineWidth(brush, current),
