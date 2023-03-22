@@ -161,7 +161,7 @@ export function render(s: State): void {
         // Make walls slightly bigger because otherwise they are not connected properly
         // (1 pixel of the board is visible between 2 walls)
         // Make other pieces slightly smaller than the square
-        pieceNode.cgScale = p.role === '_-piece' ? 1.02 : 0.9;
+        pieceNode.cgScale = p.role === '_-piece' ? 1.03 : 0.9;
         pieceNode.cgKey = k;
         if (anim) {
           pieceNode.cgAnimating = true;
