@@ -193,7 +193,7 @@ function renderCircle(
 ): SVGElement {
   const o = pos2user(pos, bounds, bd),
     widths = circleWidth(),
-    radius = (bounds.width + bounds.height) / (4 * Math.max(bounds.width, bounds.height));
+    radius = 0.48; // Make circle diameter a bit smaller than square size
   return setAttributes(createElement('circle'), {
     stroke: brush.color,
     'stroke-width': widths[current ? 0 : 1],
