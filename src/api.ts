@@ -1,6 +1,6 @@
 import { State } from './state.js';
 import * as board from './board.js';
-import { write as fenWrite } from './fen.js';
+import { write as fenWrite, getRoleSizes } from './fen.js';
 import { Config, configure, applyAnimation } from './config.js';
 import { anim, render } from './anim.js';
 import { cancel as dragCancel, dragNewPiece } from './drag.js';
@@ -90,6 +90,15 @@ export function start(state: State, redrawAll: cg.Redraw): Api {
   return {
     set(config): void {
       if (config.mapping) state.mapping = config.mapping;
+      if (config.pieceSizes) {
+        const newRoles = getRoleSizes(state.mapping, config.pieceSizes);
+        // Only redraw if the role sizes have changed
+        if (Object.keys(newRoles).length !== Object.keys(state.roleSizes).length || 
+            Object.keys(newRoles).some(r => newRoles[r] !== state.roleSizes[r])) {
+          state.roleSizes = newRoles;
+          redrawAll();
+        }
+      }
       if (config.orientation && config.orientation !== state.orientation) toggleOrientation();
       applyAnimation(state, config);
       (config.fen ? anim : render)(state => configure(state, config), state);

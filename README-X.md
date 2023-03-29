@@ -42,6 +42,15 @@ dimensions?: cg.BoardDimensions;
 The dimensions of the board: width and height. In the format `{ width: number, height: number }`. The default is `{ width: 8, height: 8 }`, representing an 8x8 board.
 
 ```
+pieceSizes?: { [key: string]: number };
+```
+
+The the size of each piece image, between `0` (invisible) and `1` (same size as the square). The default size is `0.7`.
+The key is the piece symbol. For example, `pieceSizes: { 'Q': 0.7, 'q': 0.7, 'R': 0.5 }`.
+
+```
+
+```
 `variant?: cg.Variant;`
 ```
 

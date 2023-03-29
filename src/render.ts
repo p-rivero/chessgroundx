@@ -2,6 +2,7 @@ import { State } from './state.js';
 import {
   key2pos,
   pieceClasses as pieceNameOf,
+  pieceSize,
   createEl,
   posToTranslate as posToTranslateFromBounds,
   translateAndScale,
@@ -160,8 +161,9 @@ export function render(s: State): void {
         pieceNode.cgPiece = pieceName;
         // Make walls slightly bigger because otherwise they are not connected properly
         // (1 pixel of the board is visible between 2 walls)
-        // Make other pieces slightly smaller than the square
-        pieceNode.cgScale = p.role === '_-piece' ? 1.03 : 0.9;
+        console.log(p.color, p.role);
+        console.log(pieceSize(s, p));
+        pieceNode.cgScale = p.role === '_-piece' ? 1.03 : pieceSize(s, p);
         pieceNode.cgKey = k;
         if (anim) {
           pieceNode.cgAnimating = true;
