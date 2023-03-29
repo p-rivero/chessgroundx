@@ -89,7 +89,7 @@ export interface HeadlessState {
   exploding?: cg.Exploding;
   hold: cg.Timer;
   dimensions: cg.BoardDimensions; // number of lines and ranks of the board {width: 10, height: 8}
-  roleSizes: { [role: string]: number }; // size multiplier for each role (between 0 and 1)
+  pieceSize: number; // size of a piece, between 0 (invisible) and 1 (as big as the square)
   notation: cg.Notation;
   kingRoles: string[]; // piece id (one char) to be marked with check
   pocketRoles?: cg.PocketRoles; // undefined for non-pocket variants. Possible pieces that a pocket can hold for each color
@@ -178,7 +178,7 @@ export function defaults(): HeadlessState {
     },
     hold: timer(),
     dimensions: { width: 8, height: 8 },
-    roleSizes: {},
+    pieceSize: 0.75,
     notation: cg.Notation.ALGEBRAIC,
     kingRoles: ['k-piece'],
   };

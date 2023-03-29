@@ -83,7 +83,7 @@ export interface Config {
     onChange?: (shapes: DrawShape[]) => void; // called after drawable shapes change
   };
   dimensions?: cg.BoardDimensions;
-  pieceSizes?: { [key: string]: number }; // Size of each piece between 0 (invisible) and 1 (as big as the square)
+  pieceSize?: number; // Size of the pieces between 0 (invisible) and 1 (as big as the square)
   notation?: cg.Notation; // coord notation style
   kingRoles?: string[]; // id of pieces to be marked with check
   pocketRoles?: cg.PocketRoles; // what pieces have slots in the pocket for each color

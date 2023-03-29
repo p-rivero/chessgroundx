@@ -174,12 +174,3 @@ export function mapIdToRole(outerId: string, mapping: Mapping): { role: cg.Role,
   const { letter, color } = mapOuterToInner(outerId, mapping);
   return { role: roleOf(letter), color };
 }
-
-export function getRoleSizes(mapping: Mapping, pieceSizes: { [key: string]: number }) {
-  const roleSizes: { [key: string]: number } = {};
-  for (const [id, size] of Object.entries(pieceSizes)) {
-    const { role, color } = mapIdToRole(id, mapping);
-    roleSizes[role + color] = size;
-  }
-  return roleSizes;
-}
