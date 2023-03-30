@@ -1,3 +1,4 @@
+import type { State } from './state';
 import * as cg from './types.js';
 
 export const invRanks: readonly cg.Rank[] = [...cg.ranks].reverse();
@@ -101,6 +102,8 @@ export const samePiece = (p1: cg.Piece, p2: cg.Piece): boolean =>
   p1.role === p2.role && p1.color === p2.color && !!p1.promoted === !!p2.promoted;
 
 export const pieceSide = (p: cg.Piece, o: cg.Color): cg.Side => (p.color === o ? 'ally' : 'enemy');
+
+export const pieceSize = (s: State, p: cg.Piece): number => (pieceSide(p, s.orientation) === 'ally' ? s.allyPieceSize : s.enemyPieceSize);
 
 export const pieceClasses = (p: cg.Piece, o: cg.Color): string =>
   `${p.color} ${pieceSide(p, o)} ${p.promoted ? 'promoted ' : ''}${p.role}`;

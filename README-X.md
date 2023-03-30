@@ -42,10 +42,13 @@ dimensions?: cg.BoardDimensions;
 The dimensions of the board: width and height. In the format `{ width: number, height: number }`. The default is `{ width: 8, height: 8 }`, representing an 8x8 board.
 
 ```
-pieceSize?: number;
+allyPieceSize?: number;
+enamyPieceSize?: number;
 ```
 
-The the size of the piece images, between `0` (invisible) and `1` (same size as the square). The default is `0.75`.
+The the size of the piece images, between `0` (invisible) and `1` (same size as the square). The default is `0.75`. Allows for different piece sizes for ally and enemy pieces (for example, use a negative enemy size to invert the piece direction).
+
+```
 
 ```
 `variant?: cg.Variant;`

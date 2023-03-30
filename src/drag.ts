@@ -64,7 +64,7 @@ export function start(s: State, e: cg.MouchEvent): void {
     const ghost = s.dom.elements.ghost;
     if (ghost) {
       ghost.className = 'ghost ' + util.pieceClasses(piece, s.orientation);
-      util.translateAndScale(ghost, util.posToTranslate(bounds, s.dimensions)(util.key2pos(orig), board.whitePov(s)), s.pieceSize);
+      util.translateAndScale(ghost, util.posToTranslate(bounds, s.dimensions)(util.key2pos(orig), board.whitePov(s)), util.pieceSize(s, piece));
       util.setVisible(ghost, true);
     }
     processDrag(s);
@@ -142,7 +142,7 @@ export function processDrag(s: State): void {
         util.translateAndScale(cur.element, [
           cur.pos[0] - bounds.left - bounds.width / (2 * s.dimensions.width),
           cur.pos[1] - bounds.top - bounds.height / (2 * s.dimensions.height),
-        ], s.pieceSize);
+        ], util.pieceSize(s, cur.piece));
 
         if (cur.orig !== 'a0')
           cur.keyHasChanged ||= cur.orig !== board.getKeyAtDomPos(cur.pos, board.whitePov(s), bounds, s.dimensions);

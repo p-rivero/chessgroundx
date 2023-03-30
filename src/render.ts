@@ -7,6 +7,7 @@ import {
   translateAndScale,
   dropOrigOf,
   isKey,
+  pieceSize,
 } from './util.js';
 import { whitePov } from './board.js';
 import { AnimCurrent, AnimVectors, AnimVector, AnimFadings } from './anim.js';
@@ -160,7 +161,7 @@ export function render(s: State): void {
         pieceNode.cgPiece = pieceName;
         // Make walls slightly bigger because otherwise they are not connected properly
         // (1 pixel of the board is visible between 2 walls)
-        pieceNode.cgScale = p.role === '_-piece' ? 1.03 : s.pieceSize;
+        pieceNode.cgScale = p.role === '_-piece' ? 1.03 : pieceSize(s, p);
         pieceNode.cgKey = k;
         if (anim) {
           pieceNode.cgAnimating = true;
