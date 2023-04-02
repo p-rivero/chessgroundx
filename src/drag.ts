@@ -124,7 +124,7 @@ export function processDrag(s: State): void {
     if (s.animation.current?.plan.anims.has(cur.orig)) s.animation.current = undefined;
     // if moving piece is gone, cancel
     const origPiece = s.boardState.pieces.get(cur.orig);
-    if (!util.samePiece(origPiece!, cur.piece)) cancel(s);
+    if (!origPiece || !util.samePiece(origPiece!, cur.piece)) cancel(s);
     else {
       if (!cur.started && util.distanceSq(cur.pos, cur.origPos) >= Math.pow(s.draggable.distance, 2))
         cur.started = true;

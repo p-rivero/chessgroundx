@@ -138,7 +138,7 @@ export type KHz = number;
 
 export type RanksPosition = 'left' | 'right';
 
-export const colors = ['white', 'black'] as const;
+export const colors = ['white', 'black', 'none'] as const;
 export const sides = ['ally', 'enemy'] as const;
 export const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'] as const;
 export const ranks = ['1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@'] as const;

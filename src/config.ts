@@ -113,7 +113,7 @@ export function configure(state: HeadlessState, config: Config): void {
     if (draggedPiece !== undefined) boardState.pieces.set('a0', draggedPiece);
     // set the pocket to empty instead of undefined if pocketRoles exists
     // likewise, set the pocket to undefined if pocketRoles is undefined
-    if (state.pocketRoles) boardState.pockets = boardState.pockets ?? { white: new Map(), black: new Map() };
+    if (state.pocketRoles) boardState.pockets = boardState.pockets ?? { white: new Map(), black: new Map(), none: new Map()};
     else boardState.pockets = undefined;
     state.boardState = boardState;
     state.drawable.shapes = [];

@@ -256,6 +256,7 @@ function isMovable(state: HeadlessState, orig: cg.Selectable, fromPocket: boolea
   const [piece, available] = pieceAvailability(state, orig, fromPocket);
   return (
     available &&
+    piece!.color !== 'none' &&
     (state.movable.color === 'both' || (state.movable.color === piece!.color && state.turnColor === piece!.color))
   );
 }

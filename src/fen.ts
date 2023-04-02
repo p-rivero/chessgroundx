@@ -99,6 +99,7 @@ function readPockets(pocketStr: string | undefined, mapping: Mapping): cg.Pocket
     return {
       white: whitePocket,
       black: blackPocket,
+      none: new Map(),
     };
   } else {
     return undefined;

@@ -34,7 +34,7 @@ export interface HeadlessState {
   };
   movable: {
     free: boolean; // all moves are valid - board editor
-    color?: cg.Color | 'both'; // color that can move. white | black | both
+    color?: cg.Color | 'both'; // color that can move. white | black | both | none
     dests?: cg.Dests; // valid moves. {"a2" ["a3" "a4"] "b1" ["a3" "c3"]}
     showDests: boolean; // whether to add the move-dest class on squares
     events: {
