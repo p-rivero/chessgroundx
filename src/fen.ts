@@ -120,7 +120,7 @@ export function writeBoard(pieces: cg.Pieces, bd: cg.BoardDimensions, mapping: M
           const piece = pieces.get((x + y) as cg.Key);
           if (piece) {
             const p = letterOf(piece.role);
-            let outer = mapInnerToOuter(p, piece.color, mapping);
+            let outer = mapPieceToId(piece, mapping);
             if (piece.promoted && p.charAt(0) !== '+') outer += '~';
             return outer;
           } else return '1';
@@ -174,4 +174,8 @@ function mapInnerToOuter(c: cg.Letter, color: cg.Color, mapping: Mapping): strin
 export function mapIdToRole(outerId: string, mapping: Mapping): { role: cg.Role, color: cg.Color } {
   const { letter, color } = mapOuterToInner(outerId, mapping);
   return { role: roleOf(letter), color };
+}
+export function mapPieceToId(piece: cg.Piece, mapping: Mapping): string {
+  const letter = letterOf(piece.role);
+  return mapInnerToOuter(letter, piece.color, mapping);
 }

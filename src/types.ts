@@ -131,6 +131,7 @@ export interface Timer {
   stop: () => number;
 }
 
+export type FilterKeys = (key: Key, piece: Piece) => boolean;
 export type Redraw = () => void;
 export type Unbind = () => void;
 export type Milliseconds = number;

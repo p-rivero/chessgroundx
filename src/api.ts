@@ -1,6 +1,6 @@
 import { State } from './state.js';
 import * as board from './board.js';
-import { write as fenWrite } from './fen.js';
+import { write as fenWrite, mapPieceToId } from './fen.js';
 import { Config, configure, applyAnimation } from './config.js';
 import { anim, render } from './anim.js';
 import { cancel as dragCancel, dragNewPiece } from './drag.js';
@@ -20,6 +20,12 @@ export interface Api {
   // get the position as a FEN string (only contains pieces, no flags)
   // e.g. rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR
   getFen(): cg.FEN;
+  
+  // get the piece id of the piece on a given square, if any
+  getPieceAtKey(key: cg.Key): string | undefined;
+  
+  // returns the list of keys where a condition is met
+  getKeysWhere(condition: cg.FilterKeys): cg.Key[];
 
   // change the view angle
   toggleOrientation(): void;
@@ -98,6 +104,20 @@ export function start(state: State, redrawAll: cg.Redraw): Api {
     state,
 
     getFen: () => fenWrite(state.boardState, state.dimensions, state.mapping),
+    
+    getPieceAtKey(key): string | undefined {
+      const piece = state.boardState.pieces.get(key);
+      if (!piece) return undefined;
+      return mapPieceToId(piece, state.mapping);
+    },
+    
+    getKeysWhere(condition): cg.Key[] {
+      const keys: cg.Key[] = []
+      for (const [key, piece] of state.boardState.pieces) {
+        if (condition(key, piece)) keys.push(key);
+      }
+      return keys;
+    },
 
     toggleOrientation,
 
