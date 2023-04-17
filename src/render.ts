@@ -18,6 +18,10 @@ type PieceName = string; // `$color $role`
 
 type SquareClasses = Map<cg.Key, string>;
 
+// Make walls slightly bigger because otherwise they are not connected properly
+// (1 pixel of the board is visible between 2 walls)
+const WALL_SCALE = 1.03;
+
 // ported from https://github.com/lichess-org/lichobile/blob/master/src/chessground/render.ts
 // in case of bugs, blame @veloce
 export function render(s: State): void {
@@ -120,7 +124,8 @@ export function render(s: State): void {
       } else {
         const squareNode = createEl('square', className) as cg.SquareNode;
         squareNode.cgKey = sk;
-        translate(squareNode, translation);
+        const scale = className.includes('exploding') ? WALL_SCALE : 1;
+        translateAndScale(squareNode, translation, scale);
         boardEl.insertBefore(squareNode, boardEl.firstChild);
       }
     }
@@ -159,9 +164,7 @@ export function render(s: State): void {
           pos = key2pos(k);
 
         pieceNode.cgPiece = pieceName;
-        // Make walls slightly bigger because otherwise they are not connected properly
-        // (1 pixel of the board is visible between 2 walls)
-        pieceNode.cgScale = p.role === '_-piece' ? 1.03 : pieceSize(s, p);
+        pieceNode.cgScale = p.role === '_-piece' ? WALL_SCALE : pieceSize(s, p);
         pieceNode.cgKey = k;
         if (anim) {
           pieceNode.cgAnimating = true;
